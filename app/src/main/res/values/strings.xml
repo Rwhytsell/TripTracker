@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">TripTracker</string>
     <string name="title_activity_trip">Trip</string>
-    <string name="title_activity_map">Map</string>
+    <string name="title_activity_map">TripTracker</string>
 </resources>
