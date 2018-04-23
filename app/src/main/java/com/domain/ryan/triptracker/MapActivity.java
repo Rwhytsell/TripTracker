@@ -2,6 +2,7 @@ package com.domain.ryan.triptracker;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,13 +64,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     @Override
                     public void onSuccess(Location location) {
                         Log.i("Info", "Location found");
-                        LatLng ltln = new LatLng(location.getLatitude(), location.getLongitude());
-                        CameraUpdate loc = CameraUpdateFactory.newLatLngZoom(ltln, 10.0f);
-                        mMap.animateCamera(loc);
-
-                        mMap.clear();
-                        MarkerOptions marker = new MarkerOptions().position(ltln);
-                        mMap.addMarker(marker);
+                        circleUser(location);
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -86,5 +82,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.addMarker(marker);
             }
         });
+    }
+
+    public void circleUser (Location location) {
+        LatLng ltln = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate loc = CameraUpdateFactory.newLatLngZoom(ltln, 15.0f);
+        mMap.animateCamera(loc);
+
+        CircleOptions circleOptions = new CircleOptions();
+        circleOptions.center(new LatLng(location.getLatitude(),
+                location.getLongitude()));
+
+        circleOptions.radius(50);
+        circleOptions.fillColor(Color.BLUE);
+        circleOptions.strokeWidth(5);
+
+        mMap.addCircle(circleOptions);
     }
 }
