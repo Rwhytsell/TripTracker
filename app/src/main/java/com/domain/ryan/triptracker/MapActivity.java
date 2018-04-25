@@ -1,14 +1,13 @@
 package com.domain.ryan.triptracker;
-
-import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,14 +29,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private boolean mLocationPermissionGranted = false;
     private int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        FloatingActionButton fab = findViewById(R.id.newMedia);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Start camera
+            }
+        });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
@@ -93,8 +101,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         circleOptions.center(new LatLng(location.getLatitude(),
                 location.getLongitude()));
 
-        circleOptions.radius(50);
-        circleOptions.fillColor(Color.BLUE);
+        circleOptions.radius(15);
+        circleOptions.fillColor(R.color.colorAccent);
         circleOptions.strokeWidth(5);
 
         mMap.addCircle(circleOptions);
