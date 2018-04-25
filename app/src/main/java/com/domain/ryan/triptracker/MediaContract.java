@@ -29,7 +29,7 @@ public final class MediaContract {
                 "DROP TABLE IF EXISTS " + Media.TABLE_NAME;
     }
 
-    public class MediaDbHelper extends SQLiteOpenHelper {
+    public static class MediaDbHelper extends SQLiteOpenHelper {
 
         public static final int DATABASE_VERSION = 1;
         public static final String DATABASE_NAME = "TripTracker.db";

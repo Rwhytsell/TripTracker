@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 public final class TripContract {
     private TripContract() {}
@@ -18,14 +19,14 @@ public final class TripContract {
         // Create Table
         public static final String SQL_CREATE_TRIPS = "CREATE TABLE " + Trip.TABLE_NAME +
                 "(" + Trip._ID + " INTEGER PRIMARY KEY," +
-                Trip.COLUMN_NAME_TITLE + " TEXT NOT NULL," +
+                Trip.COLUMN_NAME_TITLE + " TEXT," +
                 Trip.COLUMN_NAME_DESCRIPTION + " TEXT)";
 
         public static final String SQL_DELETE_TRIPS =
                 "DROP TABLE IF EXISTS " + Trip.TABLE_NAME;
     }
 
-    public class TripDbHelper extends SQLiteOpenHelper {
+    public static class TripDbHelper extends SQLiteOpenHelper {
 
         public static final int DATABASE_VERSION = 1;
         public static final String DATABASE_NAME = "TripTracker.db";
@@ -46,3 +47,4 @@ public final class TripContract {
         }
     }
 }
+
